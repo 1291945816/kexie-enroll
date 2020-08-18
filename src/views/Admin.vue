@@ -14,11 +14,13 @@
             <v-col cols="12">
               <v-text-field
                 label="授权码"
-                type="password"
                 validate-on-blur
                 filled
-                v-model="auth_code"
                 :rules="[required]"
+                :type="show? 'text':'password'"
+                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show = !show"
+                v-model="auth_code"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -50,64 +52,72 @@
       </v-card-actions>
     </v-card>
 
-    <v-container fluid v-else style="max-width:960px" class="mx-auto my-10">
-      <v-text-field label="搜索" outlined append-icon="mdi-magnify" v-model="search"></v-text-field>
-      <v-btn rounded @click="download">
-        <v-icon>mdi-download</v-icon>下载Excel表格
-      </v-btn>
+    <v-card
+      class="mx-auto rounded-lg"
+      max-width="960px"
+      flat
+      :outlined="this.$vuetify.breakpoint.width>960"
+      v-else
+    >
+      <v-container fluid>
+        <v-text-field label="搜索" outlined append-icon="mdi-magnify" v-model="search"></v-text-field>
+        <v-btn rounded @click="download">
+          <v-icon>mdi-download</v-icon>下载Excel表格
+        </v-btn>
 
-      <v-row>
-        <v-col v-for="(item,index) in TableView" :key="index" cols="12" md="6">
-          <v-card>
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">学号</span>
-              {{item.user_id}}
-            </v-card-text>
+        <v-row>
+          <v-col v-for="(item,index) in TableView" :key="index" cols="12" md="6">
+            <v-card>
+              <v-card-text class="px-3 py-2 text-body-1">
+                <span class="text-h6 mr-4">学号</span>
+                {{item.user_id}}
+              </v-card-text>
 
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">姓名</span>
-              {{item.user_name}}
-            </v-card-text>
+              <v-card-text class="px-3 py-2 text-body-1">
+                <span class="text-h6 mr-4">姓名</span>
+                {{item.user_name}}
+              </v-card-text>
 
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">邮箱</span>
-              {{item.email}}
-            </v-card-text>
+              <v-card-text class="px-3 py-2 text-body-1">
+                <span class="text-h6 mr-4">邮箱</span>
+                {{item.email}}
+              </v-card-text>
 
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">手机号码</span>
-              {{item.phone}}
-            </v-card-text>
+              <v-card-text class="px-3 py-2 text-body-1">
+                <span class="text-h6 mr-4">手机号码</span>
+                {{item.phone}}
+              </v-card-text>
 
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">QQ号码</span>
-              {{item.qq_number}}
-            </v-card-text>
+              <v-card-text class="px-3 py-2 text-body-1">
+                <span class="text-h6 mr-4">QQ号码</span>
+                {{item.qq_number}}
+              </v-card-text>
 
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">部门</span>
-              {{item.department}}
-            </v-card-text>
+              <v-card-text class="px-3 py-2 text-body-1">
+                <span class="text-h6 mr-4">部门</span>
+                {{item.department}}
+              </v-card-text>
 
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">方向</span>
-              {{item.direction}}
-            </v-card-text>
+              <v-card-text class="px-3 py-2 text-body-1">
+                <span class="text-h6 mr-4">方向</span>
+                {{item.direction}}
+              </v-card-text>
 
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">密码</span>
-              {{item.password}}
-            </v-card-text>
+              <v-card-text class="px-3 py-2 text-body-1">
+                <span class="text-h6 mr-4">密码</span>
+                {{item.password}}
+              </v-card-text>
 
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">自我介绍</span>
-            </v-card-text>
+              <v-card-text class="px-3 py-2 text-body-1">
+                <span class="text-h6 mr-4">自我介绍</span>
+              </v-card-text>
 
-            <v-card-text class="px-3 py-2 text-body-1">{{item.self_intro}}</v-card-text>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
+              <v-card-text class="px-3 py-2 text-body-1">{{item.self_intro}}</v-card-text>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-card>
   </div>
 </template>
 
@@ -117,6 +127,7 @@ export default {
   data() {
     return {
       auth_code: '',
+      show: false,
       message: '',
       dialog: false,
       loading: false,
@@ -152,6 +163,13 @@ export default {
         this.dialog = true
         this.loading = true
         this.message = ''
+
+        setTimeout(() => {
+          this.loading = false
+          this.message = '请求超时'
+          return
+        }, 30000)
+
         this.$http
           .get('/admin/allApplyUser', { headers: { auth: this.auth_code } })
           .then((res) => {

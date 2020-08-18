@@ -20,9 +20,11 @@
                 label="OJ密码"
                 validate-on-blur
                 filled
-                type="password"
-                v-model="password"
                 :rules="[required]"
+                :type="show? 'text':'password'"
+                :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show = !show"
+                v-model="password"
               ></v-text-field>
             </v-col>
           </v-row>
@@ -90,6 +92,7 @@ export default {
     return {
       id: '',
       password: '',
+      show: false,
       dialog: false,
       loading: false,
       success: false,
@@ -132,6 +135,8 @@ export default {
 
         setTimeout(() => {
           this.loading = false
+          this.message = '请求超时'
+          return
         }, 30000)
 
         this.$http
@@ -159,6 +164,3 @@ export default {
   },
 }
 </script>
-
-<style>
-</style>

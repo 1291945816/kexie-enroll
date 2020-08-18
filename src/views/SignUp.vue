@@ -11,51 +11,56 @@
         <v-container fluid class="pa-4">
           <v-row>
             <v-col cols="12" sm="6" md="4">
-              <v-text-field label="学号" v-model="id" filled :rules="IDRules" validate-on-blur></v-text-field>
+              <v-text-field label="学号" filled :rules="IDRules" validate-on-blur v-model="id"></v-text-field>
             </v-col>
 
             <v-col cols="12" sm="6" md="4">
-              <v-text-field label="姓名" v-model="name" filled :rules="NameRules" validate-on-blur></v-text-field>
+              <v-text-field label="姓名" filled :rules="NameRules" validate-on-blur v-model="name"></v-text-field>
             </v-col>
 
             <v-col cols="12" sm="6" md="4">
-              <v-text-field label="邮箱" v-model="email" filled :rules="EmailRules" validate-on-blur></v-text-field>
+              <v-text-field label="邮箱" filled :rules="EmailRules" validate-on-blur v-model="email"></v-text-field>
             </v-col>
 
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 label="手机号码"
-                v-model="phone"
                 filled
                 :rules="PhoneRules"
                 validate-on-blur
+                v-model="phone"
               ></v-text-field>
             </v-col>
 
             <v-col cols="12" sm="6" md="4">
-              <v-text-field label="QQ号码" v-model="qq" filled :rules="QQRules" validate-on-blur></v-text-field>
+              <v-text-field label="QQ号码" filled :rules="QQRules" validate-on-blur v-model="qq"></v-text-field>
             </v-col>
 
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 label="OJ初始密码"
-                type="password"
-                v-model="password"
                 filled
                 :rules="PasswordRules"
                 hint="最少6个字符，只可使用数字、字母"
                 validate-on-blur
+                counter
+                :type="show1? 'text':'password'"
+                :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show1 = !show1"
+                v-model="password"
               ></v-text-field>
             </v-col>
 
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 label="确认密码"
-                type="password"
-                v-model="password2"
                 filled
                 :rules="[required,checkPassword]"
                 validate-on-blur
+                :type="show2? 'text':'password'"
+                :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'"
+                @click:append="show2 = !show2"
+                v-model="password2"
               ></v-text-field>
             </v-col>
 
@@ -64,9 +69,9 @@
                 label="报名部门"
                 filled
                 :items="departments_name"
-                v-model="selected_department"
                 :rules="[required]"
                 validate-on-blur
+                v-model="selected_department"
               ></v-select>
             </v-col>
 
@@ -75,20 +80,20 @@
                 label="方向"
                 filled
                 :items="directions"
-                v-model="selected_direction"
                 :rules="[required]"
                 validate-on-blur
+                v-model="selected_direction"
               ></v-select>
             </v-col>
 
             <v-col cols="12">
               <v-textarea
                 label="自我介绍"
-                :v-model="self_intro"
                 filled
                 counter="200"
                 :rules="SelfIntroRules"
                 validate-on-blur
+                v-model="self_intro"
               ></v-textarea>
             </v-col>
           </v-row>
@@ -141,6 +146,8 @@ export default {
       message: '',
       reason: '',
       success: false,
+      show1: false,
+      show2: false,
 
       //表单规则
       IDRules: [
@@ -191,7 +198,7 @@ export default {
       departments: [
         {
           name: '多媒体部',
-          directions: ['网站开发', 'PS', 'UI方向', '3D建模方向', '视频制作'],
+          directions: ['网站开发', 'UI方向', '3D建模方向', '视频制作'],
         },
         {
           name: '软件部',
@@ -269,6 +276,7 @@ export default {
         setTimeout(() => {
           this.loading = false
           this.message = '请求超时'
+          return
         }, 30000)
 
         this.$http
