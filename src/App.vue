@@ -45,9 +45,38 @@
       <v-footer dark padless width="100%">
         <v-card flat tile width="100%" class="text-center" color="#092940">
           <v-card-text>
-            <v-btn v-for="icon in icons" :key="icon" class="mx-4 white--text" icon>
-              <v-icon size="24px">{{ icon }}</v-icon>
+            <v-btn
+              class="mx-4 white--text"
+              icon
+              @click="openNewTab('https://github.com/sanyuankexie')"
+            >
+              <v-icon size="24px">mdi-github</v-icon>
             </v-btn>
+            <v-btn class="mx-4 white--text" icon @click="openNewTab('https://kexieoj.kilig.ink/')">
+              <v-icon size="24px">mdi-bug</v-icon>
+            </v-btn>
+
+            <v-dialog v-model="weChatDialog" width="375">
+              <template #activator="{on, attrs}">
+                <v-btn class="mx-4 white--text" icon v-on="on" v-bind="attrs">
+                  <v-icon size="24px">mdi-wechat</v-icon>
+                </v-btn>
+              </template>
+              <v-card>
+                <v-img :src="require('@/assets/WeChatQR.jpg')"></v-img>
+              </v-card>
+            </v-dialog>
+
+            <v-dialog v-model="qqDialog" width="375">
+              <template #activator="{on, attrs}">
+                <v-btn class="mx-4 white--text" icon v-on="on" v-bind="attrs">
+                  <v-icon size="24px">mdi-qqchat</v-icon>
+                </v-btn>
+              </template>
+              <v-card>
+                <v-img :src="require('@/assets/qqQR.jpg')"></v-img>
+              </v-card>
+            </v-dialog>
           </v-card-text>
 
           <v-divider></v-divider>
@@ -69,6 +98,8 @@ export default {
   data: () => ({
     logo,
     drawer: false,
+    weChatDialog: false,
+    qqDialog: false,
     navItems: [
       {
         name: '首页',
@@ -87,8 +118,12 @@ export default {
         link: 'admin',
       },
     ],
-    icons: ['mdi-github', 'mdi-sina-weibo', 'mdi-wechat', 'mdi-qqchat'],
   }),
+  methods: {
+    openNewTab(url) {
+      window.open(url)
+    },
+  },
 }
 </script>
 
