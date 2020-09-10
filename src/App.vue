@@ -1,5 +1,5 @@
 <template>
-  <v-app>
+  <v-app id="app">
     <v-app-bar app color="#092940" flat dark height="58">
       <div class="d-flex align-center">
         <v-img
@@ -37,61 +37,84 @@
     </v-navigation-drawer>
 
     <v-main>
-      <v-container fluid class="pa-0" style="min-height:calc(100vh - 181px)">
+      <!-- main -->
+      <div id="bg"></div>
+
+      <v-container fluid class="main-container pa-0">
         <transition name="fade" mode="out-in">
-          <router-view></router-view>
+          <router-view class="main-view"></router-view>
         </transition>
+
+        <!-- footer -->
+        <v-footer
+          dark
+          padless
+          width="100%"
+          class="footer"
+          :color="$route.path==='/'?'transparent':'#092940'"
+        >
+          <v-card
+            flat
+            tile
+            width="100%"
+            class="text-center"
+            :color="$route.path==='/'?'transparent':'#092940'"
+          >
+            <v-card-text>
+              <v-btn
+                class="mx-4 white--text"
+                icon
+                @click="openNewTab('https://github.com/sanyuankexie')"
+              >
+                <v-icon size="24px">mdi-github</v-icon>
+              </v-btn>
+              <v-btn
+                class="mx-4 white--text"
+                icon
+                @click="openNewTab('https://kexieoj.kilig.ink/')"
+              >
+                <v-icon size="24px">mdi-bug</v-icon>
+              </v-btn>
+
+              <v-dialog v-model="weChatDialog" width="375">
+                <template #activator="{on, attrs}">
+                  <v-btn class="mx-4 white--text" icon v-on="on" v-bind="attrs">
+                    <v-icon size="24px">mdi-wechat</v-icon>
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-img :src="require('@/assets/WeChatQR.jpg')"></v-img>
+                </v-card>
+              </v-dialog>
+
+              <v-dialog v-model="qqDialog" width="375">
+                <template #activator="{on, attrs}">
+                  <v-btn class="mx-4 white--text" icon v-on="on" v-bind="attrs">
+                    <v-icon size="24px">mdi-qqchat</v-icon>
+                  </v-btn>
+                </template>
+                <v-card>
+                  <v-img :src="require('@/assets/qqQR.jpg')"></v-img>
+                </v-card>
+              </v-dialog>
+            </v-card-text>
+
+            <v-divider></v-divider>
+
+            <v-card-text class="white--text d-inline-block text-truncate" style="min-width:320px">
+              {{ new Date().getFullYear() }} —
+              <span>计算机与信息安全学院大学生科技协会</span>
+            </v-card-text>
+          </v-card>
+        </v-footer>
       </v-container>
-      <v-footer dark padless width="100%">
-        <v-card flat tile width="100%" class="text-center" color="#092940">
-          <v-card-text>
-            <v-btn
-              class="mx-4 white--text"
-              icon
-              @click="openNewTab('https://github.com/sanyuankexie')"
-            >
-              <v-icon size="24px">mdi-github</v-icon>
-            </v-btn>
-            <v-btn class="mx-4 white--text" icon @click="openNewTab('https://kexieoj.kilig.ink/')">
-              <v-icon size="24px">mdi-bug</v-icon>
-            </v-btn>
-
-            <v-dialog v-model="weChatDialog" width="375">
-              <template #activator="{on, attrs}">
-                <v-btn class="mx-4 white--text" icon v-on="on" v-bind="attrs">
-                  <v-icon size="24px">mdi-wechat</v-icon>
-                </v-btn>
-              </template>
-              <v-card>
-                <v-img :src="require('@/assets/WeChatQR.jpg')"></v-img>
-              </v-card>
-            </v-dialog>
-
-            <v-dialog v-model="qqDialog" width="375">
-              <template #activator="{on, attrs}">
-                <v-btn class="mx-4 white--text" icon v-on="on" v-bind="attrs">
-                  <v-icon size="24px">mdi-qqchat</v-icon>
-                </v-btn>
-              </template>
-              <v-card>
-                <v-img :src="require('@/assets/qqQR.jpg')"></v-img>
-              </v-card>
-            </v-dialog>
-          </v-card-text>
-
-          <v-divider></v-divider>
-
-          <v-card-text class="white--text">
-            {{ new Date().getFullYear() }} —
-            <strong>计算机与信息安全学院大学生科技协会</strong>
-          </v-card-text>
-        </v-card>
-      </v-footer>
     </v-main>
   </v-app>
 </template>
 
 <script>
+import Net from 'vanta/dist/vanta.net.min'
+import * as THREE from 'three'
 import logo from '@/assets/logo.jpg'
 export default {
   name: 'App',
@@ -124,15 +147,48 @@ export default {
       window.open(url)
     },
   },
+  mounted() {
+    this.vantaEffect = Net({
+      el: '#bg',
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.0,
+      minWidth: 200.0,
+      scale: 1.0,
+      scaleMobile: 1.0,
+      color: '#80deea',
+      backgroundColor: '#092940',
+      THREE,
+    })
+  },
 }
 </script>
 
 <style scoped>
+#app {
+  min-width: 320px;
+}
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+#bg {
+  height: calc(100vh - 59px);
+}
+.main-container {
+  position: absolute;
+  top: 0;
+  min-height: calc(100vh - 59px);
+}
+.main-view {
+  padding-bottom: 129px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
 }
 </style>

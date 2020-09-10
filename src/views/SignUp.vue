@@ -1,7 +1,7 @@
 <template>
-  <div class="py-8">
+  <div>
     <v-card
-      class="mx-auto rounded-lg"
+      class="mx-auto my-3 rounded-lg"
       max-width="960px"
       flat
       :outlined="this.$vuetify.breakpoint.width>960"
@@ -90,6 +90,7 @@
               <v-textarea
                 label="自我介绍"
                 filled
+                rows="4"
                 counter="200"
                 :rules="SelfIntroRules"
                 validate-on-blur
