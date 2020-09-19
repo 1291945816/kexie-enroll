@@ -74,7 +74,15 @@
                 @click="openNewTab('https://kexieoj.kilig.ink/')"
               >
                 <v-icon size="24px">mdi-bug</v-icon>
+              
               </v-btn>
+              <v-btn
+              class="mx-4 white--text"
+              icon
+              @click="openNewTab('https://space.bilibili.com/673693349?spm_id_from=333.788.b_765f7570696e666f.1')"
+            >
+            <v-icon>{{ bilibili }}</v-icon>
+            </v-btn>
 
               <v-dialog v-model="weChatDialog" width="375">
                 <template #activator="{on, attrs}">
@@ -115,6 +123,7 @@
 <script>
 import Net from 'vanta/dist/vanta.net.min'
 import * as THREE from 'three'
+import { mdiAlphaBCircle } from '@mdi/js'
 import logo from '@/assets/logo.jpg'
 export default {
   name: 'App',
@@ -122,6 +131,7 @@ export default {
     logo,
     drawer: false,
     weChatDialog: false,
+    bilibili:mdiAlphaBCircle,
     qqDialog: false,
     navItems: [
       {

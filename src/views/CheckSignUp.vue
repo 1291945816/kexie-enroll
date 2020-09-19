@@ -17,7 +17,7 @@
             </v-col>
             <v-col cols="12">
               <v-text-field
-                label="OJ密码"
+                label="OJ密码（初始）"
                 validate-on-blur
                 filled
                 :rules="[required]"
