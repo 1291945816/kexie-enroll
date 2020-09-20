@@ -1,12 +1,6 @@
 <template>
-  <div class="py-8">
-    <v-card
-      class="mx-auto rounded-lg"
-      max-width="960px"
-      flat
-      :outlined="this.$vuetify.breakpoint.width>960"
-      v-if="!success"
-    >
+  <div>
+    <v-card class="mx-auto rounded-lg" max-width="960px" flat v-if="!success">
       <v-card-title class="text-subtitle-1 font-weight-light">查看报名信息。</v-card-title>
 
       <v-form lazy-validation ref="checkForm">
