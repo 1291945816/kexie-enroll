@@ -6,7 +6,7 @@
       flat
       :outlined="this.$vuetify.breakpoint.width>960"
     >
-      <v-card-title class="text-subtitle-1 font-weight-light">您的个人信息我们会妥善保存在数据库中。</v-card-title>
+      <v-card-title class="text-subtitle-1 font-weight-light">您的个人信息我们会妥善保存在数据库中。tips:<span style="color: brown;">如需更新您的报名信息，重新报名即可。</span></v-card-title>
       <v-form lazy-validation ref="signUpForm">
         <v-container fluid class="pa-4">
           <v-row dense>
@@ -88,7 +88,7 @@
 
             <v-col cols="12">
               <v-textarea
-                label="自我介绍"
+                label="来点自我介绍呗,学长学姐挺想了解你的"
                 filled
                 rows="4"
                 counter="200"
