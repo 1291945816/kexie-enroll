@@ -9,7 +9,7 @@
       <v-card-title class="text-subtitle-1 font-weight-light">您的个人信息我们会妥善保存在数据库中。</v-card-title>
       <v-form lazy-validation ref="signUpForm">
         <v-container fluid class="pa-4">
-          <v-row>
+          <v-row dense>
             <v-col cols="12" sm="6" md="4">
               <v-text-field label="学号" filled :rules="IDRules" validate-on-blur v-model="id"></v-text-field>
             </v-col>
@@ -210,8 +210,16 @@ export default {
           directions: ['嵌入式软件', '嵌入式硬件', '电路电子硬件设计'],
         },
         {
-          name: '组织部',
-          directions: [],
+          name: '组织部，多媒体部',
+          directions: ['网站开发', 'UI方向', '3D建模方向', '视频制作'],
+        },
+        {
+          name: '组织部，软件部',
+          directions: ['机器学习', 'Android开发', '游戏开发'],
+        },
+        {
+          name: '组织部，硬件部',
+          directions: ['嵌入式软件', '嵌入式硬件', '电路电子硬件设计'],
         },
       ],
       selected_department: '',
@@ -226,20 +234,13 @@ export default {
       })
     },
     directions: function () {
-      let index = this.departments.findIndex((d) => {
-        return d.name === this.selected_department
+      if (this.selected_department === '') return []
+      let index = -1
+      index = this.departments.findIndex((department) => {
+        return department.name === this.selected_department
       })
-      if (index === -1) {
-        return []
-      } else if (this.departments[index].name === '组织部') {
-        let directions = []
-        this.departments.forEach((d) => {
-          directions = directions.concat(d.directions)
-        })
-        return directions
-      } else {
-        return this.departments[index].directions
-      }
+      if (index === -1) return []
+      return this.departments[index].directions
     },
   },
   methods: {
