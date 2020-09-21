@@ -37,15 +37,13 @@
     </v-navigation-drawer>
 
     <v-main style="background-color:#092940">
-      <div id="bg">
-        <transition name="fade" mode="out-in">
-          <router-view style="position:relative;z-index:1;"></router-view>
-        </transition>
-      </div>
-    </v-main>
+      <div id="bg"></div>
 
-    <v-footer dark padless>
-      <v-card flat tile min-width="310px" width="100%" color="#092940" class="text-center">
+      <transition name="fade" mode="out-in">
+        <router-view style="min-height:calc(100vh - 187px);position:relative;z-index:1"></router-view>
+      </transition>
+
+      <v-card flat tile width="100%" color="transparent" class="text-center">
         <v-card-text>
           <v-btn
             class="mx-4 white--text"
@@ -99,7 +97,7 @@
           <span>计算机与信息安全学院大学生科技协会</span>
         </v-card-text>
       </v-card>
-    </v-footer>
+    </v-main>
   </v-app>
 </template>
 
@@ -140,7 +138,7 @@ export default {
     },
   },
   mounted() {
-    this.vantaEffect = Net({
+    Net({
       el: '#bg',
       mouseControls: true,
       touchControls: true,
@@ -168,14 +166,14 @@ export default {
 .fade-leave-active {
   transition: opacity 0.5s;
 }
-.fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter,
+.fade-leave-to {
   opacity: 0;
 }
 #bg {
-  height: 100%;
-}
-.vanta-canvas {
-  top: 58px !important;
+  top: 58px;
   position: fixed !important;
+  width: 100%;
+  height: calc(100vh - 58px);
 }
 </style>
