@@ -2,7 +2,6 @@
   <div>
     <v-card class="mx-auto rounded-lg" max-width="960px" flat v-if="!success">
       <v-card-title class="text-subtitle-1 font-weight-light">查看报名信息。</v-card-title>
-
       <v-form lazy-validation ref="checkForm">
         <v-container fluid class="pa-4">
           <v-row no-gutters>

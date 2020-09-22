@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-card class="mx-auto rounded-lg" max-width="960px" flat v-if="!success">
+    <v-card class="mx-auto rounded-lg" max-width="960" flat v-if="!success">
       <v-card-title class="text-subtitle-1 font-weight-light">查看、管理所有人的报名信息</v-card-title>
       <v-form lazy-validation ref="AdminForm">
         <v-container fluid class="pa-4">
@@ -47,47 +47,51 @@
     </v-card>
 
     <template v-else>
-      <v-card class="mx-auto rounded-lg pa-3" max-width="960px" flat>
+      <v-card class="mx-3 mx-md-auto rounded-lg pa-3" max-width="960px" flat>
         <v-text-field filled label="搜索" append-icon="mdi-magnify" v-model="search"></v-text-field>
         <v-btn rounded @click="download">
           <v-icon>mdi-download</v-icon>下载Excel表格
         </v-btn>
       </v-card>
 
-      <v-row style="max-width:960px" class="mx-auto">
-        <v-col v-for="(item,index) in TableView" :key="index" cols="6">
-          <v-card>
+      <v-row style="max-width:984px" class="mx-auto" align="stretch">
+        <v-col v-for="(item,index) in table" :key="index" cols="12" sm="6">
+          <v-card height="100%">
             <v-card-text>
               <div>
-                <span class="mr-2 font-weight-black">学号：</span>
+                <span class="font-weight-black">学号：</span>
                 <span>{{item.user_id}}</span>
               </div>
               <div>
-                <span class="mr-2 font-weight-black">姓名：</span>
+                <span class="font-weight-black">姓名：</span>
                 <span>{{item.user_name}}</span>
               </div>
               <div>
-                <span class="mr-2 font-weight-black">邮箱：</span>
+                <span class="font-weight-black">邮箱：</span>
                 <span>{{item.email}}</span>
               </div>
               <div>
-                <span class="mr-2 font-weight-black">手机号码：</span>
+                <span class="font-weight-black">手机号码：</span>
                 <span>{{item.phone}}</span>
               </div>
               <div>
-                <span class="mr-2 font-weight-black">QQ号码：</span>
+                <span class="font-weight-black">QQ号码：</span>
                 <span>{{item.qq_number}}</span>
               </div>
               <div>
-                <span class="mr-2 font-weight-black">部门：</span>
+                <span class="font-weight-black">密码：</span>
+                <span>{{item.password}}</span>
+              </div>
+              <div>
+                <span class="font-weight-black">部门：</span>
                 <span>{{item.department}}</span>
               </div>
               <div>
-                <span class="mr-2 font-weight-black">方向：</span>
+                <span class="font-weight-black">方向：</span>
                 <span>{{item.direction}}</span>
               </div>
               <div>
-                <span class="mr-2 font-weight-black">自我介绍：</span>
+                <span class="font-weight-black">自我介绍：</span>
                 <span>{{item.self_intro}}</span>
               </div>
             </v-card-text>
@@ -110,19 +114,7 @@ export default {
       loading: false,
       success: false,
       search: '',
-      table_data: [
-        {
-          user_id: '1',
-          user_name: '456',
-          email: '1',
-          phone: '1',
-          qq_number: '1',
-          department: '1',
-          direction: '1',
-          password: '1',
-          self_intro: '这是自我介绍',
-        },
-      ],
+      table: [],
     }
   },
   methods: {
@@ -151,7 +143,7 @@ export default {
           .get('/admin/allApplyUser', { headers: { auth: this.auth_code } })
           .then((res) => {
             if (res.data.code === '200') {
-              this.table_data = res.data.data
+              this.table = res.data.data
               this.loading = false
               this.dialog = false
               this.success = true
@@ -186,23 +178,6 @@ export default {
 
           window.URL.revokeObjectURL(objectUrl)
         })
-    },
-  },
-  computed: {
-    TableView: function () {
-      console.log('computing')
-      if (this.search === '') {
-        return this.table_data
-      } else {
-        let pattern = new RegExp(`${this.search}`)
-        return this.table_data.filter((item) => {
-          for (var key in item) {
-            if (pattern.test(item[key])) {
-              return true
-            }
-          }
-        })
-      }
     },
   },
 }

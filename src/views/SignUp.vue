@@ -6,7 +6,10 @@
       flat
       :outlined="this.$vuetify.breakpoint.width>960"
     >
-      <v-card-title class="text-subtitle-1 font-weight-light">您的个人信息我们会妥善保存在数据库中。tips:<span style="color: brown;">如需更新您的报名信息，重新报名即可。</span></v-card-title>
+      <v-card-title class="text-subtitle-1 font-weight-light">
+        您的个人信息我们会妥善保存在数据库中。tips:
+        <span style="color: brown;">如需更新您的报名信息，重新报名即可。</span>
+      </v-card-title>
       <v-form lazy-validation ref="signUpForm">
         <v-container fluid class="pa-4">
           <v-row dense>
@@ -222,6 +225,7 @@ export default {
           directions: ['嵌入式软件', '嵌入式硬件', '电路电子硬件设计'],
         },
       ],
+      directions: [],
       selected_department: '',
       selected_direction: '',
       self_intro: '',
@@ -233,14 +237,15 @@ export default {
         return department.name
       })
     },
-    directions: function () {
-      if (this.selected_department === '') return []
-      let index = -1
-      index = this.departments.findIndex((department) => {
-        return department.name === this.selected_department
+  },
+  watch: {
+    selected_department: function (newSelected) {
+      let index = this.departments.findIndex((dep) => {
+        return dep.name === newSelected
       })
-      if (index === -1) return []
-      return this.departments[index].directions
+      this.directions = this.departments[index].directions
+      //记得在变部门的时候把之前选的方向清空
+      this.selected_direction = ''
     },
   },
   methods: {

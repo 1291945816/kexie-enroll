@@ -2,14 +2,7 @@
   <v-app id="app">
     <v-app-bar app color="#092940" flat dark height="58">
       <div class="d-flex align-center">
-        <v-img
-          alt="Kexie Logo"
-          class="shrink mr-2"
-          contain
-          :src="logo"
-          transition="scale-transition"
-          width="50"
-        />
+        <v-img alt="Kexie Logo" class="mr-2" contain :src="logo" width="50" />
         <div class="text-h5">科协招新</div>
       </div>
 
@@ -36,7 +29,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <v-main style="background-color:#092940">
+    <v-main>
       <div id="bg"></div>
 
       <transition name="fade" mode="out-in">
