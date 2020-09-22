@@ -52,7 +52,7 @@
 
     <!--查询之后的信息-->
     <v-card
-      class="my-10 mx-auto rounded-lg"
+      class="mx-auto rounded-lg"
       max-width="960px"
       flat
       :outlined="this.$vuetify.breakpoint.width>960"

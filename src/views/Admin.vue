@@ -46,7 +46,7 @@
       </v-card-actions>
     </v-card>
 
-    <v-container v-else>
+    <template v-else>
       <v-card class="mx-auto rounded-lg pa-3" max-width="960px" flat>
         <v-text-field filled label="搜索" append-icon="mdi-magnify" v-model="search"></v-text-field>
         <v-btn rounded @click="download">
@@ -54,58 +54,47 @@
         </v-btn>
       </v-card>
 
-      <v-row class="mx-auto" style="max-width:984px" align="center">
+      <v-row style="max-width:960px" class="mx-auto">
         <v-col v-for="(item,index) in TableView" :key="index" cols="6">
           <v-card>
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">学号</span>
-              {{item.user_id}}
+            <v-card-text>
+              <div>
+                <span class="mr-2 font-weight-black">学号：</span>
+                <span>{{item.user_id}}</span>
+              </div>
+              <div>
+                <span class="mr-2 font-weight-black">姓名：</span>
+                <span>{{item.user_name}}</span>
+              </div>
+              <div>
+                <span class="mr-2 font-weight-black">邮箱：</span>
+                <span>{{item.email}}</span>
+              </div>
+              <div>
+                <span class="mr-2 font-weight-black">手机号码：</span>
+                <span>{{item.phone}}</span>
+              </div>
+              <div>
+                <span class="mr-2 font-weight-black">QQ号码：</span>
+                <span>{{item.qq_number}}</span>
+              </div>
+              <div>
+                <span class="mr-2 font-weight-black">部门：</span>
+                <span>{{item.department}}</span>
+              </div>
+              <div>
+                <span class="mr-2 font-weight-black">方向：</span>
+                <span>{{item.direction}}</span>
+              </div>
+              <div>
+                <span class="mr-2 font-weight-black">自我介绍：</span>
+                <span>{{item.self_intro}}</span>
+              </div>
             </v-card-text>
-
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">姓名</span>
-              {{item.user_name}}
-            </v-card-text>
-
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">邮箱</span>
-              {{item.email}}
-            </v-card-text>
-
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">手机号码</span>
-              {{item.phone}}
-            </v-card-text>
-
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">QQ号码</span>
-              {{item.qq_number}}
-            </v-card-text>
-
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">部门</span>
-              {{item.department}}
-            </v-card-text>
-
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">方向</span>
-              {{item.direction}}
-            </v-card-text>
-
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">密码</span>
-              {{item.password}}
-            </v-card-text>
-
-            <v-card-text class="px-3 py-2 text-body-1">
-              <span class="text-h6 mr-4">自我介绍</span>
-            </v-card-text>
-
-            <v-card-text class="px-3 py-2 text-body-1">{{item.self_intro}}</v-card-text>
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
+    </template>
   </div>
 </template>
 
