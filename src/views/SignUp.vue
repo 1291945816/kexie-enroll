@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card
-      class="mx-auto my-3 rounded-lg"
+      class="mx-auto rounded-lg"
       max-width="960px"
       flat
       :outlined="this.$vuetify.breakpoint.width>960"
