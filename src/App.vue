@@ -77,9 +77,6 @@
                 <v-icon size="24px">mdi-qqchat</v-icon>
               </v-btn>
             </template>
-            <v-card>
-              <v-img :src="require('@/assets/qqQR.jpg')"></v-img>
-            </v-card>
           </v-dialog>
         </v-card-text>
 

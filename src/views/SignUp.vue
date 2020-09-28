@@ -210,7 +210,7 @@ export default {
         },
         {
           name: '硬件部',
-          directions: ['嵌入式软件', '嵌入式硬件', '电路电子硬件设计'],
+          directions: ['嵌入式软硬件', '物联网', '电路电子硬件设计','智能控制'],
         },
         {
           name: '组织部+多媒体部',
@@ -222,7 +222,7 @@ export default {
         },
         {
           name: '组织部+硬件部',
-          directions: ['嵌入式软件', '嵌入式硬件', '电路电子硬件设计'],
+          directions: ['嵌入式软硬件', '物联网', '电路电子硬件设计','智能控制'],
         },
       ],
       directions: [],
@@ -298,6 +298,9 @@ export default {
               this.message = '报名失败'
               //这里属实恶心
               this.reason = ''
+              if(res.data.message){
+                this.reason += res.data.message + '。'
+              }
               if (res.data.message0) {
                 this.reason += res.data.message0 + '。'
               }
